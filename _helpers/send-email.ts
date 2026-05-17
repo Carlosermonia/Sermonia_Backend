@@ -1,20 +1,14 @@
-export default async function sendEmail({ to, subject, html, from = 'mave.veloso@swu.phinma.edu.ph' }: any) {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            personalizations: [{ to: [{ email: to }] }],
-            from: { email: from },
-            subject,
-            content: [{ type: 'text/html', value: html }]
-        })
+import nodemailer from 'nodemailer';
+
+export default async function sendEmail({ to, subject, html, from = process.env.EMAIL_FROM }: any) {
+    const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT || '2525'),
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+        }
     });
 
-    if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`SendGrid error: ${error}`);
-    }
+    await transporter.sendMail({ from, to, subject, html });
 }
