@@ -1,29 +1,25 @@
 # IPT Final Project - Angular 21 Auth Boilerplate
-
 **Full-Stack Authentication System with Email Verification**
 
 ---
 
 ## Live Links
-
 | | URL |
 |---|---|
-| Frontend | https://angular-boiler-plate-veloso.vercel.app |
-| Backend API Docs | https://angular-boiler-plate-veloso-backend-production.up.railway.app/api-docs |
+| Frontend | https://sermonia-finalproject-576923.netlify.app |
+| Backend API Docs | https://sermonia-backend.onrender.com/api-docs |
 
 ---
 
 ## GitHub Repositories
-
 | | URL |
 |---|---|
-| Frontend | https://github.com/isabel-veloso/angular-boiler-plate-veloso |
-| Backend | https://github.com/isabel-veloso/angular-boiler-plate-veloso-backend |
+| Frontend | https://github.com/Carlosermonia/Sermonia_Lab7Activity |
+| Backend | https://github.com/Carlosermonia/Sermonia_Backend |
 
 ---
 
 ## Features
-
 - Email sign up and verification
 - JWT authentication with refresh tokens
 - Role based authorization (Admin & User)
@@ -34,37 +30,23 @@
 ---
 
 ## Stack
-
 | Part | Technology | Host |
 |---|---|---|
-| Frontend | Angular 21 + Bootstrap 5 | Vercel |
-| Backend | Node.js + Express + TypeScript | Railway |
+| Frontend | Angular 15 + Bootstrap 5 | Netlify |
+| Backend | Node.js + Express + TypeScript | Render |
 | Database | MySQL | Railway |
-| Email | SendGrid | - |
+| Email | Mailtrap | - |
 
 ---
 
-## Database Credentials (Railway MySQL)
-
-```
-Host: yamanote.proxy.rlwy.net
-Port: 16930
-Database: railway
-```
-
----
-
-## Running Locally (Fake Backend)
-
+## Running Locally
 ```bash
-# Frontend
-cd angular-boiler-plate-veloso
+# Backend
+cd backend-ts
 npm install
-ng serve
+npm run start:dev
 ```
-
-Open `http://localhost:4200` — uses fake backend, no real database or email needed.
 
 ---
 
-*UC CCS IPT Final Project | May 2026 | Isabel Veloso*
+*UC CCS IPT Final Project | May 2026 | John Carlo Sermonia*
