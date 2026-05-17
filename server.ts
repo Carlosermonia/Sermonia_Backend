@@ -18,23 +18,16 @@ app.use(cors({
     credentials: true 
 }));
 
-// initialize DB before every request
-app.use(async (req: any, res: any, next: any) => {
-    try {
-        await initializeDb();
-        next();
-    } catch (err) {
-        next(err);
-    }
-});
-
 app.use('/accounts', accountsController);
 app.use('/api-docs', swaggerDocs);
 app.use(errorHandler);
 
-// always listen — Render needs this
 const port = process.env.PORT || 4000;
-app.listen(port, () => console.log('Server listening on port ' + port));
 
-// export for Vercel
-module.exports = app;
+// Initialize DB first, then start server
+initializeDb().then(() => {
+    app.listen(port, () => console.log('Server listening on port ' + port));
+}).catch(err => {
+    console.error('Failed to initialize database:', err);
+    process.exit(1);
+});
