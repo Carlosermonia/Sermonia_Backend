@@ -64,11 +64,17 @@ function revokeToken(req: any, res: any, next: any) {
     const token = req.body.token || req.cookies.refreshToken;
     const ipAddress = req.ip;
 
-    if (!token) return res.status(400).json({ message: 'Token is required' });
+    if (!token) {
+        // clear cookie and return ok even if no token
+        res.clearCookie('refreshToken');
+        return res.json({ message: 'Token revoked' });
+    }
 
-    // Remove the ownership check since we removed authorize()
     accountService.revokeToken({ token, ipAddress })
-        .then(() => res.json({ message: 'Token revoked' }))
+        .then(() => {
+            res.clearCookie('refreshToken');
+            res.json({ message: 'Token revoked' });
+        })
         .catch(next);
 }
 function registerSchema(req: any, res: any, next: any) {
