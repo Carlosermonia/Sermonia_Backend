@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/authenticate', authenticateSchema, authenticate);
 router.post('/refresh-token', refreshToken);
-router.post('/revoke-token', authorize(), revokeTokenSchema, revokeToken);
+router.post('/revoke-token', revokeTokenSchema, revokeToken);
 router.post('/register', registerSchema, register);
 router.post('/verify-email', verifyEmailSchema, verifyEmail);
 router.post('/forgot-password', forgotPasswordSchema, forgotPassword);
@@ -66,15 +66,11 @@ function revokeToken(req: any, res: any, next: any) {
 
     if (!token) return res.status(400).json({ message: 'Token is required' });
 
-    if (!req.user.ownsToken(token) && req.user.role !== Role.Admin) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-
+    // Remove the ownership check since we removed authorize()
     accountService.revokeToken({ token, ipAddress })
         .then(() => res.json({ message: 'Token revoked' }))
         .catch(next);
 }
-
 function registerSchema(req: any, res: any, next: any) {
     const schema = Joi.object({
         title: Joi.string().required(),
